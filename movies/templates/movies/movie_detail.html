@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>{{ movie.title }}</h2>
+<p>{{ movie.genres }}</p>
+
+<hr>
+
+<h4>Similar Movies</h4>
+
+<div class="row">
+{% for rec in recommendations %}
+    <div class="col-md-3 mb-4">
+        <div class="card p-3">
+            <h6>{{ rec.title }}</h6>
+        </div>
+    </div>
+{% endfor %}
+</div>
+
+{% endblock %}

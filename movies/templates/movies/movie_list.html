@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h3 class="mb-3">Recommended For You</h3>
+
+<div class="row">
+{% for movie in personalized %}
+    <div class="col-md-3 mb-4">
+        <div class="card p-3">
+            <a href="{% url 'movie_detail' movie.movieId %}">
+                <h6>{{ movie.title }}</h6>
+            </a>
+        </div>
+    </div>
+{% endfor %}
+</div>
+
+<hr>
+
+<h3 class="mb-3">All Movies</h3>
+
+<div class="row">
+{% for movie in movies %}
+    <div class="col-md-3 mb-4">
+        <div class="card p-3">
+            <a href="{% url 'movie_detail' movie.movieId %}">
+                <h6>{{ movie.title }}</h6>
+            </a>
+        </div>
+    </div>
+{% endfor %}
+</div>
+
+{% endblock %}

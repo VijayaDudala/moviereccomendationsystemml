@@ -1,0 +1,6 @@
+venv/
+staticfiles/
+*.pkl
+*.ipynb
+__pycache__/
+db.sqlite3
