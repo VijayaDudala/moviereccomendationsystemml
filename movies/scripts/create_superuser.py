@@ -7,4 +7,4 @@ def run():
             email="admin@gmail.com",
             password="admin123"
         )
-        print("Superuser created!")
+        print("Admin created successfully")
