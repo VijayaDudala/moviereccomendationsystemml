@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-(fjkc5o2m-q@n4^c!s@69m1)7dauf=#dp3wgru7+q#z(hm#kt1
 DEBUG = False
 
 ALLOWED_HOSTS = ['*']
-
+CSRF_TRUSTED_ORIGINS = ['https://moviereccomendationsystemml.onrender.com']
 
 # Application definition
 
