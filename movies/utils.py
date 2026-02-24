@@ -1,30 +1,30 @@
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from .models import Movie, UserInteraction
-
 import pandas as pd
 
+# 🔥 BUILD MODEL ONLY ONCE WHEN SERVER STARTS
+movies = Movie.objects.all()
 
-# 🎬 Content Based Recommendation
+movie_data = [
+    {
+        'movieId': m.movieId,
+        'title': m.title,
+        'genres': m.genres
+    }
+    for m in movies
+]
+
+df = pd.DataFrame(movie_data)
+
+tfidf = TfidfVectorizer(stop_words='english')
+tfidf_matrix = tfidf.fit_transform(df['genres'].fillna(''))
+
+cosine_sim = cosine_similarity(tfidf_matrix, tfidf_matrix)
+
+
+# 🎬 CONTENT BASED
 def get_recommendations(movie_id, n=5):
-
-    movies = Movie.objects.all()
-
-    movie_data = [
-        {
-            'movieId': movie.movieId,
-            'title': movie.title,
-            'genres': movie.genres
-        }
-        for movie in movies
-    ]
-
-    df = pd.DataFrame(movie_data)
-
-    tfidf = TfidfVectorizer(stop_words='english')
-    tfidf_matrix = tfidf.fit_transform(df['genres'].fillna(''))
-
-    cosine_sim = cosine_similarity(tfidf_matrix, tfidf_matrix)
 
     idx = df[df['movieId'] == movie_id].index[0]
 
@@ -37,7 +37,7 @@ def get_recommendations(movie_id, n=5):
     return df.iloc[movie_indices]
 
 
-# 👤 User Based Recommendation
+# 👤 USER BASED
 def get_user_recommendations(user, n=5):
 
     interactions = UserInteraction.objects.filter(user=user)
